@@ -1,7 +1,7 @@
-// App.js
+""
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, TextField, IconButton } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+
 import UserTable from './components/UserTable';
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
   const rowsPerPage = 10;
 
   useEffect(() => {
-    // Fetch user data when the component mounts
+  
     fetchUserData();
   }, []);
 
@@ -56,9 +56,10 @@ const App = () => {
     setUserData(updatedData);
   };
 
-  const handleSearch = () => {
-    // Add logic to handle search/filter
-  };
+ const handleSearch = (value) => {
+  setSearchTerm(value);
+};
+
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -69,19 +70,7 @@ const App = () => {
       <Typography variant="h4" gutterBottom>
         Admin Dashboard
       </Typography>
-      <TextField
-        placeholder="Search..."
-        variant="outlined"
-        fullWidth
-        onChange={(e) => setSearchTerm(e.target.value)}
-        InputProps={{
-          endAdornment: (
-            <IconButton color="primary" onClick={handleSearch}>
-              <SearchIcon />
-            </IconButton>
-          ),
-        }}
-      />
+      
       <UserTable
         userData={userData}
         selectedRows={selectedRows}
