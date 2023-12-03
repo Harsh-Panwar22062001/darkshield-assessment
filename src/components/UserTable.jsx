@@ -1,4 +1,3 @@
-// components/UserTable.jsx
 import React from 'react';
 import {
   Table,
@@ -39,13 +38,16 @@ const UserTable = ({
 
   return (
     <TableContainer component={Paper} elevation={3} sx={{ borderRadius: 4, overflow: 'hidden', marginTop: 4, border: '1px solid #ccc' }}>
-      <Box display="flex" flexDirection="column" p={2} bgcolor="#f0f0f0">
-
+      <Box display="flex" justifyContent="space-between" alignItems="center" p={2} bgcolor="#f0f0f0">
+          
+        
+        
+        
         <TextField
           placeholder="Search..."
           variant="outlined"
           onChange={(e) => onSearch(e.target.value)}
-          sx={{ width: '100%', mb: 2 }}
+          sx={{ width: '30%'}}
           InputProps={{
             endAdornment: (
               <IconButton color="primary">
@@ -54,18 +56,17 @@ const UserTable = ({
             ),
           }}
         />
-
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <IconButton
             color="secondary"
             onClick={onDeleteSelected}
             disabled={selectedRows.length === 0}
-            sx={{ alignSelf: 'flex-end' }}
           >
             <DeleteForeverIcon />
           </IconButton>
         </motion.div>
 
+        
       </Box>
       <Table>
         <TableHead>
@@ -125,60 +126,62 @@ const UserTable = ({
             ))}
         </TableBody>
       </Table>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} p={2} bgcolor="#f0f0f0" flexDirection="column">
+    <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} p={2} bgcolor="#f0f0f0">
+  <Box display="flex" alignItems="center">
+    
+    <Typography variant="subtitle1" mr={2}>
+      Page {currentPage} of {totalPages}
+    </Typography>
+  </Box>
+  
+  <Box display="flex" alignItems="center"  justifyContent="center" ml={25}>
+    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+      <IconButton onClick={() => onPageChange(1)} className={`page-number ${currentPage === 1 ? 'current-page' : ''}`}>
+        {'<<'}
+      </IconButton>
+    </motion.div>
+    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+      <IconButton onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1} className="jump-icon">
+        <NavigateBeforeIcon />
+      </IconButton>
+    </motion.div>
+    {Array.from({ length: totalPages > 5 ? 5 : totalPages }, (_, index) => (
+      <motion.div key={index + 1} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+        <Button
+          onClick={() => onPageChange(index + 1)}
+          className={`page-number ${currentPage === index + 1 ? 'current-page' : ''}`}
+          sx={{
+            border: '1px solid #ccc',  // Add border style here
+            borderRadius: 0,  // Adjust border-radius as needed
+          }}
+        >
+          {index + 1}
+        </Button>
+      </motion.div>
+    ))}
+    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+      <IconButton onClick={() => onPageChange(currentPage + 1)} disabled={currentPage * rowsPerPage >= userData.length} className="jump-icon">
+        <NavigateNextIcon />
+      </IconButton>
+    </motion.div>
+    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+      <IconButton onClick={() => onPageChange(totalPages)} className={`page-number ${currentPage === totalPages ? 'current-page' : ''}`}>
+        {'>>'}
+      </IconButton>
+    </motion.div>
+  </Box>
 
-        <Box display="flex" alignItems="center" mb={1}>
-          <Typography variant="subtitle1" mr={2}>
-            Page {currentPage} of {totalPages}
-          </Typography>
-        </Box>
+  <Box ml="auto">
+    {/* Display count of selected rows on the right */}
+    <Typography variant="subtitle1">
+      {selectedRows.length} row{selectedRows.length !== 1 ? 's' : ''} selected
+    </Typography>
+  </Box>
+</Box>
 
-        <Box display="flex" alignItems="center" justifyContent="center" mb={1}>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <IconButton onClick={() => onPageChange(1)} className={`page-number ${currentPage === 1 ? 'current-page' : ''}`}>
-              {'<<'}
-            </IconButton>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <IconButton onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1} className="jump-icon">
-              <NavigateBeforeIcon />
-            </IconButton>
-          </motion.div>
-          {Array.from({ length: totalPages > 5 ? 5 : totalPages }, (_, index) => (
-            <motion.div key={index + 1} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Button
-                onClick={() => onPageChange(index + 1)}
-                className={`page-number ${currentPage === index + 1 ? 'current-page' : ''}`}
-                sx={{
-                  border: '1px solid #ccc',
-                  borderRadius: 0,
-                }}
-              >
-                {index + 1}
-              </Button>
-            </motion.div>
-          ))}
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <IconButton onClick={() => onPageChange(currentPage + 1)} disabled={currentPage * rowsPerPage >= userData.length} className="jump-icon">
-              <NavigateNextIcon />
-            </IconButton>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <IconButton onClick={() => onPageChange(totalPages)} className={`page-number ${currentPage === totalPages ? 'current-page' : ''}`}>
-              {'>>'}
-            </IconButton>
-          </motion.div>
-        </Box>
-
-        <Box ml="auto">
-          {/* Display count of selected rows on the right */}
-          <Typography variant="subtitle1">
-            {selectedRows.length} row{selectedRows.length !== 1 ? 's' : ''} selected
-          </Typography>
-        </Box>
-      </Box>
     </TableContainer>
+
+    
   );
 };
-
 export default UserTable;
