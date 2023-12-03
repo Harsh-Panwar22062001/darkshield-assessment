@@ -21,6 +21,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { motion } from 'framer-motion';
+import './UserTable.css'
 
 const UserTable = ({
   userData,
@@ -172,7 +173,7 @@ const UserTable = ({
   </Box>
 
   <Box ml="auto">
-    {/* Display count of selected rows on the right */}
+   
     <Typography variant="subtitle1">
       {selectedRows.length} row{selectedRows.length !== 1 ? 's' : ''} selected
     </Typography>
@@ -184,4 +185,5 @@ const UserTable = ({
     
   );
 };
+
 export default UserTable;

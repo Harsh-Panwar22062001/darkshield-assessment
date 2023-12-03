@@ -1,4 +1,4 @@
-/* App.css */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -20,6 +20,9 @@ body {
   border-collapse: collapse;
   margin-top: 20px;
 }
+
+
+
 
 th,
 td {
@@ -62,4 +65,4 @@ th {
   cursor: not-allowed;
 }
 
-/* Add your additional styling here */
+
