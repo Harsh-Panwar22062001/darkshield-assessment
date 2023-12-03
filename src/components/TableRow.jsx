@@ -1,5 +1,5 @@
-// components/TableRow.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { Button } from "@mui/material";
 
 const TableRow = ({ user, onSelect, isSelected, onEdit }) => {
   const [isEditing, setEditing] = useState(false);
@@ -15,15 +15,21 @@ const TableRow = ({ user, onSelect, isSelected, onEdit }) => {
 
   const handleEdit = () => {
     if (isEditing) {
-      // Save changes
       onEdit(editedUser);
     }
     setEditing(!isEditing);
   };
 
   const handleDelete = () => {
-    // Add logic to handle deleting
-    console.log(`Delete user with ID: ${user.id}`);
+    const updatedData = userData.filter(
+      (currentUser) => currentUser.id !== user.id
+    );
+
+    setUserData(updatedData);
+
+    setSelectedRows([]);
+
+    console.log(`Deleted user with ID: ${user.id}`);
   };
 
   const handleInputChange = (e) => {
@@ -37,12 +43,21 @@ const TableRow = ({ user, onSelect, isSelected, onEdit }) => {
   return (
     <tr>
       <td>
-        <input type="checkbox" onChange={handleRowSelection} checked={isSelected} />
+        <input
+          type="checkbox"
+          onChange={handleRowSelection}
+          checked={isSelected}
+        />
       </td>
       <td>{editedUser.id}</td>
       <td>
         {isEditing ? (
-          <input type="text" name="name" value={editedUser.name} onChange={handleInputChange} />
+          <input
+            type="text"
+            name="name"
+            value={editedUser.name}
+            onChange={handleInputChange}
+          />
         ) : (
           editedUser.name
         )}
@@ -50,12 +65,20 @@ const TableRow = ({ user, onSelect, isSelected, onEdit }) => {
       <td>{editedUser.email}</td>
       <td>{editedUser.role}</td>
       <td>
-        <button className={isEditing ? 'save' : 'edit'} onClick={handleEdit}>
-          {isEditing ? 'Save' : 'Edit'}
-        </button>
-        <button className="delete" onClick={handleDelete}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleEdit}
+          sx={{ marginRight: "8px" }}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          {isEditing ? "Save" : "Edit"}
+        </Button>
+        <Button variant="contained" color="error" onClick={handleDelete}>
           Delete
-        </button>
+        </Button>
       </td>
     </tr>
   );

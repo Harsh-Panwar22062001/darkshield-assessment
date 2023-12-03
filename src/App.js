@@ -1,4 +1,4 @@
-""
+// App.jsx
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, TextField, IconButton } from '@mui/material';
 
@@ -12,7 +12,6 @@ const App = () => {
   const rowsPerPage = 10;
 
   useEffect(() => {
-  
     fetchUserData();
   }, []);
 
@@ -56,10 +55,9 @@ const App = () => {
     setUserData(updatedData);
   };
 
- const handleSearch = (value) => {
-  setSearchTerm(value);
-};
-
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+  };
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -67,10 +65,19 @@ const App = () => {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
+      <Typography
+        variant="h4"
+        gutterBottom
+        display="flex"
+        justifyContent="center"
+        fontSize="32px"
+        fontWeight="bold"
+        color="#333"
+        pb={2}
+      >
         Admin Dashboard
       </Typography>
-      
+
       <UserTable
         userData={userData}
         selectedRows={selectedRows}
